@@ -16,25 +16,25 @@ crossorigin="anonymous">
 crossorigin="anonymous"></script>
 <style>
 .center {
-	text-align: center;
+    text-align: center;
 }
 </style>
 <script>
 $(function () {
-	$('#military').countdown({
-		layout: '{dn} 天 {hn} 小時 {mn} 分 {sn} 秒',
-		until: new Date(2017, 1 - 1, 8)
-	});
-	var periods = $('#military').countdown('getTimes'),
-		price = 11000,
-		days = Math.ceil(
-			periods[3] +
-			periods[4] / 24 +
-			periods[5] / 24 / 60 +
-			periods[6] / 24 / 3600
-		),
-		penalty = Math.min(price, Math.ceil(price * days / 365));
-	$('#penalty').append('NT$' + penalty);
+    $('#military').countdown({
+        layout: '{dn} 天 {hn} 小時 {mn} 分 {sn} 秒',
+        until: new Date(2017, 1 - 1, 8)
+    });
+    var periods = $('#military').countdown('getTimes'),
+        price = 11000,
+        days = Math.ceil(
+            periods[3] +
+            periods[4] / 24 +
+            periods[5] / 24 / 60 +
+            periods[6] / 24 / 3600
+        ),
+        penalty = Math.min(price, Math.ceil(price * days / 365));
+    $('#penalty').append('NT$' + penalty);
 });
 </script>
 <title></title>
