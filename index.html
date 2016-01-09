@@ -25,6 +25,16 @@ $(function () {
 		layout: '{dn} 天 {hn} 小時 {mn} 分 {sn} 秒',
 		until: new Date(2017, 1 - 1, 8)
 	});
+	var periods = $('#military').countdown('getTimes'),
+		price = 11000,
+		days = Math.ceil(
+			periods[3] +
+			periods[4] / 24 +
+			periods[5] / 24 / 60 +
+			periods[6] / 24 / 3600
+		),
+		penalty = Math.min(price, Math.ceil(price * days / 365));
+	$('#penalty').append('NT$' + penalty);
 });
 </script>
 <title></title>
@@ -33,7 +43,7 @@ $(function () {
 <div class="container">
 <div class="row">
 <h1 id="military" class="center bg-primary"></h1>
-<p class="center bg-danger">One year.</p>
+<p id="penalty" class="center bg-danger"></p>
 </div><!-- .row -->
 </div><!-- .container -->
 </body>
