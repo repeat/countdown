@@ -19,12 +19,20 @@ crossorigin="anonymous"></script>
 	text-align: center;
 }
 </style>
+<script>
+$(function () {
+	$('#military').countdown({
+		layout: '{dn} 天 {hn} 小時 {mn} 分 {sn} 秒',
+		until: new Date(2017, 1 - 1, 8)
+	});
+});
+</script>
 <title></title>
 </head>
 <body>
 <div class="container">
 <div class="row">
-<h1 class="center bg-primary">One Year</h1>
+<h1 id="military" class="center bg-primary"></h1>
 <p class="center bg-danger">One year.</p>
 </div><!-- .row -->
 </div><!-- .container -->
