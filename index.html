@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous" />
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous" />
+<style>
+.center {
+    text-align: center;
+}
+#military {
+    font-size: 5em;
+    line-height: 2em;
+}
+#penalty {
+    font-size: 4em;
+    line-height: 2em;
+}
+</style>
+<link rel="shortcut icon" href="http://www.pixnet.net/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.min.js"></script>
+<script type="text/javascript" src="js/jquery.countdown.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous">
+</script>
+<script>
+$(function () {
+    $('#military').countdown({
+        layout: '{dn} 天 {hn} 小時 {mn} 分 {sn} 秒',
+        until: new Date(2017, 1 - 1, 8)
+    });
+    var periods = $('#military').countdown('getTimes'),
+        price = 11000,
+        days = Math.ceil(
+            periods[3] +
+            periods[4] / 24 +
+            periods[5] / 24 / 60 +
+            periods[6] / 24 / 3600
+        ),
+        penalty = Math.min(price, Math.ceil(price * days / 365));
+    $('#penalty').append('NT$' + penalty);
+    $periods = $('#periods');
+    for (var i = days; i >= 0; i--) {
+        var current = new Date(2017, 1 - 1, 8 - i),
+            currentYear = current.getFullYear(),
+            currentMonth = current.getMonth() + 1,
+            currentDate = current.getDate(),
+            currentPenalty = Math.ceil(price * i / 365);
+        if (currentMonth <= 9) {
+            currentMonth = "0" + currentMonth;
+        }
+        if (currentDate <= 9) {
+            currentDate = "0" + currentDate;
+        }
+        var targetHtml = "<tr>"
+            + "<td>" + currentYear + "/" + currentMonth + "/" + currentDate + "</td>"
+            + "<td>" + "NT$" + currentPenalty + "</td>"
+            + "</tr>";
+        $periods.append(targetHtml);
+    }
+});
+</script>
+<title>萬一</title>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<h1 id="military" class="center bg-primary"></h1>
+<p id="penalty" class="center bg-danger"></p>
+<table id="periods" class="table table-bordered table-striped table-hover">
+</table>
+</div><!-- .row -->
+</div><!-- .container -->
+</body>
+</html>
