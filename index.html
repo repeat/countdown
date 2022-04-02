@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"
+rel="stylesheet">
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/luxon@2"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -9,6 +11,11 @@
 
   gtag('config', 'G-DGKBYYKDBT');
 </script>
+<style>
+  #app {
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+</style>
 <div id="app">
   <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天，距離 15 週年還有 {{ until15thAnniversary }} 天，距離 2023/10/13 還有 {{ countdown }} 天。</p>
 </div>
