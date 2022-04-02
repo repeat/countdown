@@ -1,5 +1,14 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/luxon@2"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DGKBYYKDBT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DGKBYYKDBT');
+</script>
 <div id="clock">距離 2023/10/13 還有 {{ countdown }} 天。</div>
 <script>
 var DateTime = luxon.DateTime,
