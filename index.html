@@ -90,8 +90,7 @@ rel="stylesheet">
       return 0;
     }
 
-    inputDateIsHoliday = (element) => element === inputDate.toFormat('yyyy-LL-dd');
-    return (inputDate.toFormat('yyyy-LL-dd'), holidays.findIndex(inputDateIsHoliday) >= 0) ? 0 : 1;
+    return ~~(holidays.indexOf(inputDate.toFormat('yyyy-LL-dd')) < 0);
   }
 
   function drawChart() {
