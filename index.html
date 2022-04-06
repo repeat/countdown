@@ -33,6 +33,9 @@ rel="stylesheet">
 <script>
   var DateTime = luxon.DateTime,
     Interval = luxon.Interval;
+  let betweenDays = (startDate, endDate) => {
+    return Interval.fromDateTimes(startDate, endDate).count('days');
+  };
   const durationSettings = ['years', 'months', 'days'],
     Taipei = { zone: 'Asia/Taipei' },
     now = DateTime.now(),
@@ -40,9 +43,9 @@ rel="stylesheet">
     employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
     fifteenthAnniversaryDate = employeedDate.plus({year: 15}),
     futureDate = DateTime.fromSQL('2023-10-13 23:59:59', Taipei),
-    fromEmployeed = Interval.fromDateTimes(employeedDate, today).count('days'),
-    until15thAnniversary = Interval.fromDateTimes(today, fifteenthAnniversaryDate).count('days'),
-    untilFutureDate = Interval.fromDateTimes(today, futureDate).count('days');
+    fromEmployeed = betweenDays(employeedDate, today),
+    until15thAnniversary = betweenDays(today, fifteenthAnniversaryDate),
+    untilFutureDate = betweenDays(today, futureDate);
 
   Vue.createApp({
     data() {
