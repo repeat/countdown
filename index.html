@@ -31,29 +31,28 @@ rel="stylesheet">
 </div>
 <div id="calendar" style="width: 1000px; height: 350px;"></div>
 <script>
-var DateTime = luxon.DateTime,
-  Interval = luxon.Interval;
-const
-  durationSettings = ['years', 'months', 'days'],
-  Taipei = { zone: 'Asia/Taipei' },
-  now = DateTime.now(),
-  today = DateTime.fromISO(now.toISODate()),
-  employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
-  fifteenthAnniversaryDate = employeedDate.plus({year: 15}),
-  futureDate = DateTime.fromSQL('2023-10-13 23:59:59', Taipei),
-  fromEmployeed = Interval.fromDateTimes(employeedDate, today).count('days'),
-  until15thAnniversary = Interval.fromDateTimes(today, fifteenthAnniversaryDate).count('days'),
-  untilFutureDate = Interval.fromDateTimes(today, futureDate).count('days');
+  var DateTime = luxon.DateTime,
+    Interval = luxon.Interval;
+  const durationSettings = ['years', 'months', 'days'],
+    Taipei = { zone: 'Asia/Taipei' },
+    now = DateTime.now(),
+    today = DateTime.fromISO(now.toISODate()),
+    employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
+    fifteenthAnniversaryDate = employeedDate.plus({year: 15}),
+    futureDate = DateTime.fromSQL('2023-10-13 23:59:59', Taipei),
+    fromEmployeed = Interval.fromDateTimes(employeedDate, today).count('days'),
+    until15thAnniversary = Interval.fromDateTimes(today, fifteenthAnniversaryDate).count('days'),
+    untilFutureDate = Interval.fromDateTimes(today, futureDate).count('days');
 
-Vue.createApp({
-  data() {
-    return {
-      fromEmployeed: fromEmployeed,
-      until15thAnniversary: until15thAnniversary,
-      countdown: untilFutureDate,
+  Vue.createApp({
+    data() {
+      return {
+        fromEmployeed: fromEmployeed,
+        until15thAnniversary: until15thAnniversary,
+        countdown: untilFutureDate,
+      }
     }
-  }
-}).mount('#app')
+  }).mount('#app')
 
   google.charts.load("current", {packages:["calendar"]});
   google.charts.setOnLoadCallback(drawChart);
