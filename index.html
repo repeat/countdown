@@ -85,15 +85,15 @@ rel="stylesheet">
   for (i = 0; i <= untilFutureDate; i ++) {
     let currentDate = today.plus({ days: i });
     let isCurrentDateWorkday = isWorkday(currentDate);
-    dataset.push([currentDate.toJSDate(), isCurrentDateWorkday]);
+    dataset.push([currentDate.toJSDate(), ~~isCurrentDateWorkday]);
   }
 
   function isWorkday(inputDate) {
     if (inputDate.weekday >= 6) {
-      return 0;
+      return false;
     }
 
-    return ~~(holidays.indexOf(inputDate.toFormat('yyyy-LL-dd')) < 0);
+    return holidays.indexOf(inputDate.toFormat('yyyy-LL-dd')) < 0;
   }
 
   function drawChart() {
