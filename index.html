@@ -34,7 +34,7 @@ rel="stylesheet">
   var DateTime = luxon.DateTime,
     Interval = luxon.Interval;
   let betweenDays = (startDate, endDate) => {
-    return Interval.fromDateTimes(startDate, endDate).count('days');
+    return Intl.NumberFormat('zh-TW').format(Interval.fromDateTimes(startDate, endDate).count('days'));
   };
   const durationSettings = ['years', 'months', 'days'],
     Taipei = { zone: 'Asia/Taipei' },
