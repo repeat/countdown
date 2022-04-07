@@ -61,6 +61,13 @@ rel="stylesheet">
   google.charts.setOnLoadCallback(drawChart);
 
   var dataset = [];
+  let isWorkday = (inputDate) => {
+    if (inputDate.weekday >= 6) {
+      return false;
+    }
+
+    return holidays.indexOf(inputDate.toFormat('yyyy-LL-dd')) < 0;
+  };
   const holidays = [
     '2022-05-02',
     '2022-06-03',
@@ -86,14 +93,6 @@ rel="stylesheet">
     let currentDate = today.plus({ days: i });
     let isCurrentDateWorkday = isWorkday(currentDate);
     dataset.push([currentDate.toJSDate(), ~~isCurrentDateWorkday]);
-  }
-
-  function isWorkday(inputDate) {
-    if (inputDate.weekday >= 6) {
-      return false;
-    }
-
-    return holidays.indexOf(inputDate.toFormat('yyyy-LL-dd')) < 0;
   }
 
   function drawChart() {
