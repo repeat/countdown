@@ -27,9 +27,11 @@ rel="stylesheet">
 </head>
 <body>
 <div id="app">
-  <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天，距離 15 週年還有 {{ until15thAnniversary }} 天，距離 2023/10/13 還有 {{ countdown }} 天。</p>
+  <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天，距離 15 週年還有 {{ until15thAnniversary }} 天。</p>
 </div>
-<div id="calendar" style="width: 1000px; height: 350px;"></div>
+<div id="link">
+  <a href="./work.html">work</a>
+</div>
 <script>
   var DateTime = luxon.DateTime,
     Interval = luxon.Interval;
@@ -42,76 +44,17 @@ rel="stylesheet">
     today = DateTime.fromISO(now.toISODate()),
     employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
     fifteenthAnniversaryDate = employeedDate.plus({year: 15}),
-    futureDate = DateTime.fromSQL('2023-10-13 23:59:59', Taipei),
     fromEmployeed = betweenDays(employeedDate, today),
-    until15thAnniversary = betweenDays(today, fifteenthAnniversaryDate),
-    untilFutureDate = betweenDays(today, futureDate);
+    until15thAnniversary = betweenDays(today, fifteenthAnniversaryDate);
 
   Vue.createApp({
     data() {
       return {
         fromEmployeed: fromEmployeed,
         until15thAnniversary: until15thAnniversary,
-        countdown: untilFutureDate,
       }
     }
   }).mount('#app')
-</script>
-<script>
-  google.charts.load("current", {packages:["calendar"]});
-  google.charts.setOnLoadCallback(drawChart);
-
-  var dataset = [];
-  let isWorkday = (inputDate) => {
-    if (inputDate.weekday >= 6) {
-      return false;
-    }
-
-    return holidays.indexOf(inputDate.toFormat('yyyy-LL-dd')) < 0;
-  };
-  const holidays = [
-    '2022-05-02',
-    '2022-06-03',
-    '2022-09-09',
-    '2022-10-10',
-    '2023-01-02',
-    '2023-01-23',
-    '2023-01-24',
-    '2023-02-27',
-    '2023-02-28',
-    '2023-04-03',
-    '2023-04-04',
-    '2023-04-05',
-    '2023-05-01',
-    '2023-06-22',
-    '2023-06-23',
-    '2023-09-29',
-    '2023-10-09',
-    '2023-10-10',
-  ];
-
-  for (i = 0; i <= untilFutureDate; i ++) {
-    let currentDate = today.plus({ days: i });
-    let isCurrentDateWorkday = isWorkday(currentDate);
-    dataset.push([currentDate.toJSDate(), ~~isCurrentDateWorkday]);
-  }
-
-  function drawChart() {
-    var dataTable = new google.visualization.DataTable();
-    dataTable.addColumn({ type: 'date', id: 'Date' });
-    dataTable.addColumn({ type: 'number', id: 'Workday' });
-    dataTable.addRows(dataset);
-
-    var chart = new google.visualization.Calendar(document.getElementById('calendar'));
-    var options = {
-      height: 350,
-      calendar: {
-        daysOfWeek: '日一二三四五六',
-      }
-    };
-
-    chart.draw(dataTable, options);
-  }
 </script>
 </body>
 </html>
