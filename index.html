@@ -27,7 +27,7 @@ rel="stylesheet">
 </head>
 <body>
 <div id="app">
-  <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天，距離 15 週年還有 {{ until15thAnniversary }} 天。</p>
+  <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天，距離 15 週年剩下 {{ until15thAnniversary }}。</p>
 </div>
 <div id="link">
   <a href="./work.html">work</a>
@@ -38,14 +38,14 @@ rel="stylesheet">
   let betweenDays = (startDate, endDate) => {
     return Intl.NumberFormat('zh-TW').format(Interval.fromDateTimes(startDate, endDate).count('days'));
   };
-  const durationSettings = ['years', 'months', 'days'],
+  const durationSettings = ['days', 'hours', 'minutes', 'seconds'],
     Taipei = { zone: 'Asia/Taipei' },
     now = DateTime.now(),
     today = DateTime.fromISO(now.toISODate()),
     employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
     fifteenthAnniversaryDate = employeedDate.plus({year: 15}),
     fromEmployeed = betweenDays(employeedDate, today),
-    until15thAnniversary = betweenDays(today, fifteenthAnniversaryDate);
+    until15thAnniversary = Interval.fromDateTimes(now, fifteenthAnniversaryDate).toDuration(durationSettings).toFormat('d 天 h 小時 m 分 s 秒');
 
   Vue.createApp({
     data() {
