@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="練習 Luxon 的專案">
+<meta name="description" content="15th Anniversary">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"
 rel="stylesheet">
 <script src="https://unpkg.com/vue@3"></script>
@@ -23,34 +23,46 @@ rel="stylesheet">
     font-family: 'Noto Sans TC', sans-serif;
   }
 </style>
-<title>練習 Luxon 的專案</title>
+<title>15th Anniversary</title>
 </head>
 <body>
 <div id="app">
-  <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天。</p>
+  <p>距離 15 週年剩下 {{ untilAnniversary }}。</p>
 </div>
-<div id="link">
-  <a href="./work.html">work</a>
-</div>
+<ul id="link">
+  <li><a href="./index.html">index</a></li>
+  <li><a href="./15thAnniversary.html">15th Anniversary</a></li>
+  <li><a href="./work.html">work</a></li>
+</ul>
 <script>
   var DateTime = luxon.DateTime,
-    Interval = luxon.Interval;
-  let betweenDays = (startDate, endDate) => {
-    return Intl.NumberFormat('zh-TW').format(Interval.fromDateTimes(startDate, endDate).count('days'));
-  };
+    Duration = luxon.Duration;
   const Taipei = { zone: 'Asia/Taipei' },
-    now = DateTime.now(),
-    today = DateTime.fromISO(now.toISODate()),
-    employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
-    fifteenthAnniversaryDate = employeedDate.plus({year: 15}),
-    fromEmployeed = betweenDays(employeedDate, today);
+    employeedDate = DateTime.fromSQL('2007-12-06', Taipei);
 
   Vue.createApp({
     data() {
       return {
-        fromEmployeed: fromEmployeed,
-      }
-    }
+        now: DateTime.now().set({ milliseconds: 0 }),
+        anniversaryDate: employeedDate.plus({ year: 15 }),
+      };
+    },
+    computed: {
+      countDiff() {
+        return this.anniversaryDate.diff(this.now, [
+          'days', 'hours', 'minutes', 'seconds',
+        ]).toObject();
+      },
+      untilAnniversary() {
+        return Duration.fromObject(this.countDiff)
+          .toFormat('d 天 h 小時 m 分 s 秒');
+      },
+    },
+    mounted() {
+      setInterval(() => {
+        this.now = DateTime.now().set({ milliseconds: 0 })
+      }, 1000);
+    },
   }).mount('#app')
 </script>
 </body>
