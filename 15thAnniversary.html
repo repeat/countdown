@@ -27,7 +27,13 @@ rel="stylesheet">
 </head>
 <body>
 <div id="app">
-  <p>距離 15 週年剩下 {{ untilAnniversary }}。</p>
+  <p>距離 15 週年剩下 {{ untilAnniversary.format }}。</p>
+  <time>
+    {{ untilAnniversary.days }} d
+    {{ untilAnniversary.hours }} h
+    {{ untilAnniversary.minutes }} m
+    {{ untilAnniversary.seconds }} s
+  </time>
 </div>
 <ul id="link">
   <li><a href="./index.html">index</a></li>
@@ -54,8 +60,11 @@ rel="stylesheet">
         ]).toObject();
       },
       untilAnniversary() {
-        return Duration.fromObject(this.countDiff)
-          .toFormat('d 天 h 小時 m 分 s 秒');
+        var currentDuration = Duration.fromObject(this.countDiff),
+          currentDurationObject = currentDuration.toObject();
+        currentDurationObject.format = currentDuration.toFormat('d 天 h 小時 m 分 s 秒');
+
+        return currentDurationObject;
       },
     },
     mounted() {
