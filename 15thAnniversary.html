@@ -13,6 +13,8 @@ rel="stylesheet">
 <script src="https://unpkg.com/luxon@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"
   integrity="sha256-7rldQObjnoCubPizkatB4UZ0sCQzu2ePgyGSUcVN70E=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-echarts@6.0.3/dist/index.umd.min.js"
+  integrity="sha256-S5lDhdkRVLPhwfjxDpUpf89Zu3o3fpe3XxBlE8qF1uo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGKBYYKDBT"></script>
@@ -44,7 +46,8 @@ rel="stylesheet">
   <p>距離 15 週年剩下 {{ untilAnniversary.full }}。</p>
   <time>{{ untilAnniversary.short }}</time>
   <p>{{ untilAnniversary.days }}-{{ untilAnniversary.hours }}-{{ untilAnniversary.minutes }}-{{ untilAnniversary.seconds }}</p>
-  <div id="chart-container"></div>
+  <p>{{ option }}</p>
+  <v-chart id="chart-container" autoresize :option="option" />
 </div>
 <script>
   var DateTime = luxon.DateTime,
@@ -83,51 +86,34 @@ rel="stylesheet">
 
         return formats;
       },
+      option() {
+        var option = {
+          series: [
+            {
+              type: 'gauge',
+              data: [
+                this.untilAnniversary.seconds,
+              ],
+              max: 60,
+              splitNumber: 12,
+              detail: {
+                show: false,
+              }
+            },
+          ],
+        };
+
+        return option;
+      }
     },
     mounted() {
       setInterval(() => {
         this.now = DateTime.now().set({ milliseconds: 0 })
       }, 1000);
     },
-  }).mount('#app')
-
-// echarts
-
-var dom = document.getElementById('chart-container');
-var myChart = echarts.init(dom, null, {
-  renderer: 'canvas',
-  useDirtyRect: false
-});
-var app = {};
-
-var option;
-
-option = {
-  tooltip: {
-    formatter: '{a} <br/>{b} : {c}%'
-  },
-  series: [
-    {
-      name: 'Pressure',
-      type: 'gauge',
-      detail: {
-        formatter: '{value}'
-      },
-      data: [
-        {
-          value: 50,
-          name: 'SCORE'
-        }
-      ]
-    }
-  ]
-};
-
-if (option && typeof option === 'object') {
-  myChart.setOption(option);
-}
-
-window.addEventListener('resize', myChart.resize);
+  })
+  .component('v-chart', VueECharts)
+  .mount('#app');
 </script>
 <ul id="link">
   <li><a href="./index.html">index</a></li>
