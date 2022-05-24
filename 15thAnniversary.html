@@ -91,13 +91,26 @@
           series: [
             {
               type: 'gauge',
+              startAngle: 90,
+              endAngle: -270,
               data: [
-                this.untilAnniversary.seconds,
+                this.untilAnniversary.days,
               ],
-              max: 60,
+              max: 240,
               splitNumber: 12,
+              axisLabel: {
+                formatter: (value) => {
+                  if (value === 240) {
+                    return '';
+                  }
+                  return value;
+                },
+              },
               detail: {
-                show: false,
+                fontFamily: 'Xanh Mono',
+                formatter: (value) => {
+                  return value + 'D';
+                }
               },
             },
           ],
