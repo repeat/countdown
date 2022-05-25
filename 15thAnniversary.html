@@ -92,115 +92,115 @@
           maxDays = (days % 60 > 0) ? (Math.ceil(days / 60) * 60) : days + 60,
           option = {
           series: [
-            {
-              name: 'days',
-              type: 'gauge',
-              startAngle: 90,
-              endAngle: -270,
-              data: [
-                days,
-              ],
-              min: minDays,
-              max: maxDays,
-              splitNumber: 12,
-              axisLabel: {
-                formatter: (value) => {
-                  if (value === maxDays) {
-                    return '';
-                  }
-                  return value;
+              {
+                name: 'days',
+                type: 'gauge',
+                startAngle: 90,
+                endAngle: -270,
+                data: [
+                  days,
+                ],
+                min: minDays,
+                max: maxDays,
+                splitNumber: 12,
+                axisLabel: {
+                  formatter: (value) => {
+                    if (value === maxDays) {
+                      return '';
+                    }
+                    return value;
+                  },
                 },
+                pointer: {
+                  icon: 'roundRect',
+                  length: '60%',
+                  width: 9,
+                },
+                detail: {
+                  show: false,
+                },
+                animation: false,
               },
-              pointer: {
-                icon: 'roundRect',
-                length: '60%',
-                width: 9,
+              {
+                name: 'hours',
+                type: 'gauge',
+                startAngle: 90,
+                endAngle: -270,
+                data: [
+                  this.untilAnniversary.hours,
+                ],
+                max: 24,
+                splitNumber: 12,
+                axisLabel: {
+                  show: false,
+                },
+                pointer: {
+                  icon: 'roundRect',
+                  length: '70%',
+                  width: 7,
+                },
+                itemStyle: {
+                  color: '#91cc75',
+                },
+                detail: {
+                  show: false,
+                },
+                animation: false,
               },
-              detail: {
-                show: false,
+              {
+                name: 'minutes',
+                type: 'gauge',
+                startAngle: 90,
+                endAngle: -270,
+                data: [
+                  this.untilAnniversary.minutes,
+                ],
+                max: 60,
+                splitNumber: 12,
+                axisLabel: {
+                  show: false,
+                },
+                pointer: {
+                  icon: 'roundRect',
+                  length: '80%',
+                  width: 5,
+                },
+                itemStyle: {
+                  color: '#fac858',
+                },
+                detail: {
+                  show: false,
+                },
+                animation: false,
               },
-              animation: false,
-            },
-            {
-              name: 'hours',
-              type: 'gauge',
-              startAngle: 90,
-              endAngle: -270,
-              data: [
-                this.untilAnniversary.hours,
-              ],
-              max: 24,
-              splitNumber: 12,
-              axisLabel: {
-                show: false,
+              {
+                name: 'seconds',
+                type: 'gauge',
+                startAngle: 90,
+                endAngle: -270,
+                data: [
+                  this.untilAnniversary.seconds,
+                ],
+                max: 60,
+                splitNumber: 12,
+                axisLabel: {
+                  show: false,
+                },
+                pointer: {
+                  icon: 'roundRect',
+                  length: '90%',
+                  width: 3,
+                },
+                itemStyle: {
+                  color: '#ee6666',
+                },
+                detail: {
+                  show: false,
+                },
+                animation: false,
               },
-              pointer: {
-                icon: 'roundRect',
-                length: '70%',
-                width: 7,
-              },
-              itemStyle: {
-                color: '#91cc75',
-              },
-              detail: {
-                show: false,
-              },
-              animation: false,
-            },
-            {
-              name: 'minutes',
-              type: 'gauge',
-              startAngle: 90,
-              endAngle: -270,
-              data: [
-                this.untilAnniversary.minutes,
-              ],
-              max: 60,
-              splitNumber: 12,
-              axisLabel: {
-                show: false,
-              },
-              pointer: {
-                icon: 'roundRect',
-                length: '80%',
-                width: 5,
-              },
-              itemStyle: {
-                color: '#fac858',
-              },
-              detail: {
-                show: false,
-              },
-              animation: false,
-            },
-            {
-              name: 'seconds',
-              type: 'gauge',
-              startAngle: 90,
-              endAngle: -270,
-              data: [
-                this.untilAnniversary.seconds,
-              ],
-              max: 60,
-              splitNumber: 12,
-              axisLabel: {
-                show: false,
-              },
-              pointer: {
-                icon: 'roundRect',
-                length: '90%',
-                width: 3,
-              },
-              itemStyle: {
-                color: '#ee6666',
-              },
-              detail: {
-                show: false,
-              },
-              animation: false,
-            },
-          ],
-        };
+            ],
+          };
 
         return option;
       },
