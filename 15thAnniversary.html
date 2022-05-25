@@ -87,7 +87,10 @@
         return formats;
       },
       option() {
-        var option = {
+        var days = this.untilAnniversary.days,
+          minDays = (days % 60 > 0) ? (Math.floor(days / 60) * 60) : days,
+          maxDays = (days % 60 > 0) ? (Math.ceil(days / 60) * 60) : days + 60,
+          option = {
           series: [
             {
               name: 'days',
@@ -95,18 +98,14 @@
               startAngle: 90,
               endAngle: -270,
               data: [
-                this.untilAnniversary.days,
+                days,
               ],
-              min: (
-                Math.floor(this.untilAnniversary.days / 60) * 60
-              ),
-              max: (
-                Math.ceil(this.untilAnniversary.days / 60) * 60
-              ),
+              min: minDays,
+              max: maxDays,
               splitNumber: 12,
               axisLabel: {
                 formatter: (value) => {
-                  if (value === 240) {
+                  if (value === maxDays) {
                     return '';
                   }
                   return value;
