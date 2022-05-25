@@ -96,7 +96,12 @@
               data: [
                 this.untilAnniversary.days,
               ],
-              max: 240,
+              min: (
+                Math.floor(this.untilAnniversary.days / 60) * 60
+              ),
+              max: (
+                Math.ceil(this.untilAnniversary.days / 60) * 60
+              ),
               splitNumber: 12,
               axisLabel: {
                 formatter: (value) => {
