@@ -45,8 +45,6 @@
 <div id="app">
   <p>距離 15 週年剩下 {{ untilAnniversary.full }}。</p>
   <time>{{ untilAnniversary.short }}</time>
-  <p>{{ untilAnniversary.days }}-{{ untilAnniversary.hours }}-{{ untilAnniversary.minutes }}-{{ untilAnniversary.seconds }}</p>
-  <p>{{ option }}</p>
   <v-chart id="chart-container" autoresize :option="option" />
 </div>
 <script>
@@ -100,6 +98,7 @@
             {
               name: 'days',
               type: 'gauge',
+              radius: '60%',
               startAngle: 90,
               endAngle: -270,
               data: [
@@ -107,33 +106,48 @@
               ],
               min: minDays,
               max: maxDays,
-              splitNumber: 12,
+              splitNumber: 6,
               // 軸線
               axisLine: {
-                show: false,
+                lineStyle: {
+                  color: [
+                    [1, 'red'],
+                  ],
+                  width: 3,
+                },
               },
               // 大格
               splitLine: {
-                show: false,
+                distance: 0,
+                lineStyle: {
+                  color: 'red',
+                },
               },
               // 小格
               axisTick: {
-                show: false,
+                splitNumber: 10,
+                distance: 0,
+                lineStyle: {
+                  color: 'red',
+                },
               },
               axisLabel: {
-                show: false,
-
+                distance: 10,
                 formatter: (value) => {
                   if (value === maxDays) {
                     return '';
                   }
-                  return value;
+                  return value + 'ᴅ';
                 },
+                color: 'red',
+                fontFamily: 'Arial',
               },
               pointer: {
-                icon: 'roundRect',
-                length: '60%',
-                width: 13,
+                length: '88%',
+                itemStyle: {
+                  color: 'red',
+                },
+                width: 7,
               },
               detail: {
                 show: false,
@@ -143,6 +157,7 @@
             {
               name: 'hours',
               type: 'gauge',
+              radius: '100%',
               startAngle: 90,
               endAngle: -270,
               data: [
@@ -171,14 +186,15 @@
                   }
                   return value;
                 },
+                fontFamily: 'Arial',
               },
               pointer: {
                 icon: 'roundRect',
                 length: '70%',
-                width: 9,
+                width: 5,
               },
               itemStyle: {
-                color: '#91cc75',
+                color: '#000',
               },
               detail: {
                 show: false,
@@ -188,6 +204,7 @@
             {
               name: 'minutes',
               type: 'gauge',
+              radius: '100%',
               startAngle: 90,
               endAngle: -270,
               data: [
@@ -213,10 +230,10 @@
               pointer: {
                 icon: 'roundRect',
                 length: '80%',
-                width: 5,
+                width: 3,
               },
               itemStyle: {
-                color: '#fac858',
+                color: '#000',
               },
               detail: {
                 show: false,
@@ -226,6 +243,7 @@
             {
               name: 'seconds',
               type: 'gauge',
+              radius: '100%',
               startAngle: 90,
               endAngle: -270,
               data: [
@@ -261,11 +279,11 @@
               },
               pointer: {
                 icon: 'roundRect',
-                length: '90%',
+                length: '93%',
                 width: 1,
               },
               itemStyle: {
-                color: '#ee6666',
+                color: '#000',
               },
               detail: {
                 show: false,
