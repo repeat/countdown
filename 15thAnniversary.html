@@ -88,120 +88,192 @@
       },
       option() {
         var days = this.untilAnniversary.days,
+          hours = this.untilAnniversary.hours,
+          minutes = this.untilAnniversary.minutes,
+          seconds = this.untilAnniversary.seconds,
           minDays = (days % 60 > 0) ? (Math.floor(days / 60) * 60) : days,
           maxDays = (days % 60 > 0) ? (Math.ceil(days / 60) * 60) : days + 60,
+          minHours = hours >= 12 ? 12 : 0,
+          maxHours = hours >= 12 ? 24 : 12,
           option = {
           series: [
-              {
-                name: 'days',
-                type: 'gauge',
-                startAngle: 90,
-                endAngle: -270,
-                data: [
-                  days,
-                ],
-                min: minDays,
-                max: maxDays,
-                splitNumber: 12,
-                axisLabel: {
-                  formatter: (value) => {
-                    if (value === maxDays) {
-                      return '';
-                    }
-                    return value;
-                  },
-                },
-                pointer: {
-                  icon: 'roundRect',
-                  length: '60%',
-                  width: 9,
-                },
-                detail: {
-                  show: false,
-                },
-                animation: false,
+            {
+              name: 'days',
+              type: 'gauge',
+              startAngle: 90,
+              endAngle: -270,
+              data: [
+                days,
+              ],
+              min: minDays,
+              max: maxDays,
+              splitNumber: 12,
+              // 軸線
+              axisLine: {
+                show: false,
               },
-              {
-                name: 'hours',
-                type: 'gauge',
-                startAngle: 90,
-                endAngle: -270,
-                data: [
-                  this.untilAnniversary.hours,
-                ],
-                min: this.untilAnniversary.hours >= 12 ? 12 : 0,
-                max: this.untilAnniversary.hours >= 12 ? 24 : 12,
-                splitNumber: 12,
-                axisLabel: {
-                  show: false,
-                },
-                pointer: {
-                  icon: 'roundRect',
-                  length: '70%',
-                  width: 7,
-                },
-                itemStyle: {
-                  color: '#91cc75',
-                },
-                detail: {
-                  show: false,
-                },
-                animation: false,
+              // 大格
+              splitLine: {
+                show: false,
               },
-              {
-                name: 'minutes',
-                type: 'gauge',
-                startAngle: 90,
-                endAngle: -270,
-                data: [
-                  this.untilAnniversary.minutes,
-                ],
-                max: 60,
-                splitNumber: 12,
-                axisLabel: {
-                  show: false,
-                },
-                pointer: {
-                  icon: 'roundRect',
-                  length: '80%',
-                  width: 5,
-                },
-                itemStyle: {
-                  color: '#fac858',
-                },
-                detail: {
-                  show: false,
-                },
-                animation: false,
+              // 小格
+              axisTick: {
+                show: false,
               },
-              {
-                name: 'seconds',
-                type: 'gauge',
-                startAngle: 90,
-                endAngle: -270,
-                data: [
-                  this.untilAnniversary.seconds,
-                ],
-                max: 60,
-                splitNumber: 12,
-                axisLabel: {
-                  show: false,
+              axisLabel: {
+                show: false,
+
+                formatter: (value) => {
+                  if (value === maxDays) {
+                    return '';
+                  }
+                  return value;
                 },
-                pointer: {
-                  icon: 'roundRect',
-                  length: '90%',
+              },
+              pointer: {
+                icon: 'roundRect',
+                length: '60%',
+                width: 13,
+              },
+              detail: {
+                show: false,
+              },
+              animation: false,
+            },
+            {
+              name: 'hours',
+              type: 'gauge',
+              startAngle: 90,
+              endAngle: -270,
+              data: [
+                hours + minutes / 60,
+              ],
+              min: minHours,
+              max: maxHours,
+              splitNumber: 12,
+              // 軸線
+              axisLine: {
+                show: false,
+              },
+              // 大格
+              splitLine: {
+                show: false,
+              },
+              // 小格
+              axisTick: {
+                show: false,
+              },
+              axisLabel: {
+                distance: 0,
+                formatter: (value) => {
+                  if (value === minHours) {
+                    return '';
+                  }
+                  return value;
+                },
+              },
+              pointer: {
+                icon: 'roundRect',
+                length: '70%',
+                width: 9,
+              },
+              itemStyle: {
+                color: '#91cc75',
+              },
+              detail: {
+                show: false,
+              },
+              animation: false,
+            },
+            {
+              name: 'minutes',
+              type: 'gauge',
+              startAngle: 90,
+              endAngle: -270,
+              data: [
+                minutes + seconds / 60,
+              ],
+              max: 60,
+              splitNumber: 12,
+              // 軸線
+              axisLine: {
+                show: false,
+              },
+              // 大格
+              splitLine: {
+                show: false,
+              },
+              // 小格
+              axisTick: {
+                show: false,
+              },
+              axisLabel: {
+                show: false,
+              },
+              pointer: {
+                icon: 'roundRect',
+                length: '80%',
+                width: 5,
+              },
+              itemStyle: {
+                color: '#fac858',
+              },
+              detail: {
+                show: false,
+              },
+              animation: false,
+            },
+            {
+              name: 'seconds',
+              type: 'gauge',
+              startAngle: 90,
+              endAngle: -270,
+              data: [
+                seconds,
+              ],
+              max: 60,
+              splitNumber: 12,
+              // 軸線
+              axisLine: {
+                lineStyle: {
+                  color: [
+                    [1, '#000'],
+                  ],
                   width: 3,
                 },
-                itemStyle: {
-                  color: '#ee6666',
-                },
-                detail: {
-                  show: false,
-                },
-                animation: false,
               },
-            ],
-          };
+              // 大格
+              splitLine: {
+                distance: 0,
+                lineStyle: {
+                  color: '#000',
+                },
+              },
+              // 小格
+              axisTick: {
+                distance: 0,
+                lineStyle: {
+                  color: '#000',
+                },
+              },
+              axisLabel: {
+                show: false,
+              },
+              pointer: {
+                icon: 'roundRect',
+                length: '90%',
+                width: 1,
+              },
+              itemStyle: {
+                color: '#ee6666',
+              },
+              detail: {
+                show: false,
+              },
+              animation: false,
+            },
+          ],
+        };
 
         return option;
       },
