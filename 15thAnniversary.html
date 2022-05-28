@@ -129,7 +129,8 @@
                 data: [
                   this.untilAnniversary.hours,
                 ],
-                max: 24,
+                min: this.untilAnniversary.hours >= 12 ? 12 : 0,
+                max: this.untilAnniversary.hours >= 12 ? 24 : 12,
                 splitNumber: 12,
                 axisLabel: {
                   show: false,
