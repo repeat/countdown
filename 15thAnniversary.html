@@ -62,7 +62,8 @@
             hours = currentDurationObj.hours,
             minutes = currentDurationObj.minutes,
             seconds = currentDurationObj.seconds,
-            formats = {
+
+            anniversaryObj = {
               full: currentDuration.toFormat('d 天 h 小時 m 分 s 秒'),
               short: currentDuration.toFormat('ddd:hh:mm:ss'),
               days: days,
@@ -71,7 +72,7 @@
               seconds: seconds,
             };
 
-          return formats;
+          return anniversaryObj;
         },
         option() {
           var days = this.untilAnniversary.days,
