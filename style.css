@@ -1,0 +1,16 @@
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  text-align: center;
+}
+
+time {
+  font-family: 'Xanh Mono', monospace;
+  font-size: 100px;
+}
+
+#chart-container {
+  position: relative;
+  padding: 10px;
+  height: 50vh;
+  overflow: hidden;
+}
