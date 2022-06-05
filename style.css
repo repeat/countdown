@@ -14,3 +14,15 @@ time {
   height: 50vh;
   overflow: hidden;
 }
+
+menu {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  width: 50vw;
+}
+
+menu li {
+  flex-grow: 1;
+  border: 1px solid black;
+}
