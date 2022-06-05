@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="練習用專案">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"
-rel="stylesheet">
-<script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/luxon@2"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DGKBYYKDBT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="練習用專案">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"
+    rel="stylesheet">
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/luxon@2"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGKBYYKDBT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-DGKBYYKDBT');
-</script>
-<style>
-  #app {
-    font-family: 'Noto Sans TC', sans-serif;
-  }
-</style>
-<title>練習 Luxon 的專案</title>
-</head>
-<body>
-<div id="app">
-  <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天。</p>
-</div>
-<ul id="link">
-  <li><a href="./index.html">index</a></li>
-  <li><a href="./15thAnniversary.html">15th Anniversary</a></li>
-  <li><a href="./work.html">work</a></li>
-</ul>
-<script>
-  var DateTime = luxon.DateTime,
-    Interval = luxon.Interval;
-  let betweenDays = (startDate, endDate) => {
-    return Intl.NumberFormat('zh-TW').format(Interval.fromDateTimes(startDate, endDate).count('days'));
-  };
-  const Taipei = { zone: 'Asia/Taipei' },
-    now = DateTime.now(),
-    today = DateTime.fromISO(now.toISODate()),
-    employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
-    fifteenthAnniversaryDate = employeedDate.plus({year: 15}),
-    fromEmployeed = betweenDays(employeedDate, today);
-
-  Vue.createApp({
-    data() {
-      return {
-        fromEmployeed: fromEmployeed,
-      }
+    gtag('config', 'G-DGKBYYKDBT');
+  </script>
+  <style>
+    #app {
+      font-family: 'Noto Sans TC', sans-serif;
     }
-  }).mount('#app')
-</script>
+  </style>
+  <title>練習 Luxon 的專案</title>
+</head>
+
+<body>
+  <div id="app">
+    <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天。</p>
+  </div>
+  <ul id="link">
+    <li><a href="./index.html">index</a></li>
+    <li><a href="./15thAnniversary.html">15th Anniversary</a></li>
+    <li><a href="./work.html">work</a></li>
+  </ul>
+  <script>
+    var DateTime = luxon.DateTime,
+      Interval = luxon.Interval;
+    let betweenDays = (startDate, endDate) => {
+      return Intl.NumberFormat('zh-TW').format(Interval.fromDateTimes(startDate, endDate).count('days'));
+    };
+    const Taipei = { zone: 'Asia/Taipei' },
+      now = DateTime.now(),
+      today = DateTime.fromISO(now.toISODate()),
+      employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
+      fifteenthAnniversaryDate = employeedDate.plus({ year: 15 }),
+      fromEmployeed = betweenDays(employeedDate, today);
+
+    Vue.createApp({
+      data() {
+        return {
+          fromEmployeed: fromEmployeed,
+        }
+      }
+    }).mount('#app')
+  </script>
 </body>
+
 </html>
