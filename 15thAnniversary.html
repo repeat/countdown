@@ -31,6 +31,11 @@
 </head>
 
 <body>
+  <menu id="link">
+    <li><a href="./index.html">index</a></li>
+    <li><a href="./15thAnniversary.html">15th Anniversary</a></li>
+    <li><a href="./work.html">work</a></li>
+  </menu>
   <div id="app">
     <p>距離 15 週年剩下 {{ untilAnniversary.full }}。</p>
     <time>{{ untilAnniversary.short }}</time>
@@ -296,11 +301,6 @@
       .component('v-chart', VueECharts)
       .mount('#app');
   </script>
-  <menu id="link">
-    <li><a href="./index.html">index</a></li>
-    <li><a href="./15thAnniversary.html">15th Anniversary</a></li>
-    <li><a href="./work.html">work</a></li>
-  </menu>
 </body>
 
 </html>
