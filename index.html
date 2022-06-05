@@ -25,7 +25,8 @@
 
 <body>
   <div id="app">
-    <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天。</p>
+    <p id="work">自 2007/12/06 起到今天已經 {{ fromEmployeed }} 天，也就是 {{ diffFormat }}。</p>
+    <p>{{ diffObj.years }}-{{ diffObj.months }}-{{ diffObj.days }}</p>
   </div>
   <script>
     var DateTime = luxon.DateTime,
@@ -37,13 +38,19 @@
       now = DateTime.now(),
       today = DateTime.fromISO(now.toISODate()),
       employeedDate = DateTime.fromSQL('2007-12-06', Taipei),
-      fifteenthAnniversaryDate = employeedDate.plus({ year: 15 }),
-      fromEmployeed = betweenDays(employeedDate, today);
+      fromEmployeed = betweenDays(employeedDate, today),
+      countDiff = today.diff(employeedDate, [
+        'years', 'months', 'days',
+      ]),
+      diffFormat = countDiff.toHuman(),
+      diffObj = countDiff.toObject();
 
     Vue.createApp({
       data() {
         return {
           fromEmployeed: fromEmployeed,
+          diffFormat: diffFormat,
+          diffObj: diffObj,
         }
       }
     }).mount('#app')
