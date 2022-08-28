@@ -61,20 +61,31 @@
 
     var dataset = [];
     let isWorkday = (inputDate) => {
-      if (inputDate.weekday >= 6) {
+      // 星期日放假
+      if (inputDate.weekday === 7) {
         return false;
+      }
+
+      // 星期六有可能補班
+      if (inputDate.weekday === 6) {
+        return workingSaturdays.indexOf(inputDate.toFormat('yyyy-LL-dd')) > 0;
       }
 
       return holidays.indexOf(inputDate.toFormat('yyyy-LL-dd')) < 0;
     };
+
     const holidays = [
       '2022-05-02',
       '2022-06-03',
       '2022-09-09',
       '2022-10-10',
       '2023-01-02',
+      '2023-01-20',
       '2023-01-23',
       '2023-01-24',
+      '2023-01-25',
+      '2023-01-26',
+      '2023-01-27',
       '2023-02-27',
       '2023-02-28',
       '2023-04-03',
@@ -86,6 +97,15 @@
       '2023-09-29',
       '2023-10-09',
       '2023-10-10',
+    ];
+
+    const workingSaturdays = [
+      '2023-01-07',
+      '2023-02-04',
+      '2023-02-18',
+      '2023-03-25',
+      '2023-06-17',
+      '2023-09-23',
     ];
 
     for (i = 0; i <= untilFutureDate; i++) {
