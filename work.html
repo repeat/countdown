@@ -68,7 +68,7 @@
 
       // 星期六有可能補班
       if (inputDate.weekday === 6) {
-        return workingSaturdays.indexOf(inputDate.toFormat('yyyy-LL-dd')) > 0;
+        return workingSaturdays.indexOf(inputDate.toFormat('yyyy-LL-dd')) >= 0;
       }
 
       return holidays.indexOf(inputDate.toFormat('yyyy-LL-dd')) < 0;
