@@ -31,7 +31,7 @@
     <li><a id="link-github" href="https://github.com/repeat/countdown" target="_blank">back to github</a></li>
   </menu>
   <div id="app">
-    <p id="work">距離 2023/12/29 還有 {{ countdown }} 天。</p>
+    <p id="work">距離 2024/12/31 還有 {{ countdown }} 天。</p>
   </div>
   <div id="calendar" style="width: 1000px; height: 350px;"></div>
   <script>
@@ -44,7 +44,7 @@
       Taipei = { zone: 'Asia/Taipei' },
       now = DateTime.now(),
       today = DateTime.fromISO(now.toISODate()),
-      futureDate = DateTime.fromSQL('2023-12-29', Taipei),
+      futureDate = DateTime.fromSQL('2024-12-31', Taipei),
       untilFutureDate = betweenDays(today, futureDate);
 
     Vue.createApp({
