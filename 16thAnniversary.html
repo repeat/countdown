@@ -23,7 +23,7 @@
 
     gtag('config', 'G-DGKBYYKDBT');
   </script>
-  <title>15th Anniversary</title>
+  <title>16th Anniversary</title>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
     <li><a id="link-github" href="https://github.com/repeat/countdown" target="_blank">back to github</a></li>
   </menu>
   <div id="app">
-    <p>距離 16 週年還有 {{ untilAnniversary.full }}。</p>
+    <p>16 週年已經過了 {{ untilAnniversary.full }}。</p>
     <time>{{ untilAnniversary.short }}</time>
     <v-chart id="chart-container" autoresize :option="option" />
   </div>
@@ -53,7 +53,7 @@
       },
       computed: {
         countDiff() {
-          return this.anniversaryDate.diff(this.now, [
+          return this.now.diff(this.anniversaryDate, [
             'days', 'hours', 'minutes', 'seconds',
           ]).toObject();
         },
