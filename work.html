@@ -32,7 +32,7 @@
     <li><a id="link-github" href="https://github.com/repeat/countdown" target="_blank">back to github</a></li>
   </menu>
   <div id="app">
-    <p id="work">距離 2024/12/31 還有 {{ countdown }} 天。</p>
+    <p id="work">距離 2025/12/31 還有 {{ countdown }} 天。</p>
   </div>
   <div id="calendar" style="width: 1000px; height: 350px;"></div>
   <script>
@@ -45,7 +45,7 @@
       Taipei = { zone: 'Asia/Taipei' },
       now = DateTime.now(),
       today = DateTime.fromISO(now.toISODate()),
-      futureDate = DateTime.fromSQL('2024-12-31', Taipei),
+      futureDate = DateTime.fromSQL('2026-01-01', Taipei),
       untilFutureDate = betweenDays(today, futureDate);
 
     Vue.createApp({
@@ -76,23 +76,25 @@
     };
 
     const holidays = [
-      '2024-01-01',
-      '2024-02-08',
-      '2024-02-09',
-      '2024-02-12',
-      '2024-02-13',
-      '2024-02-14',
-      '2024-02-28',
-      '2024-04-04',
-      '2024-04-05',
-      '2024-05-01',
-      '2024-06-10',
-      '2024-09-17',
-      '2024-10-10',
+      '2025-01-01',
+      '2025-01-27',
+      '2025-01-28',
+      '2025-01-29',
+      '2025-01-30',
+      '2025-01-31',
+      '2025-01-27',
+      '2025-01-27',
+      '2025-04-03',
+      '2025-04-04',
+      '2025-05-01',
+      '2025-05-30',
+      '2025-10-06',
+      '2025-10-10',
+      '2026-01-01',
     ];
 
     const workingSaturdays = [
-      '2024-02-17',
+      '2025-02-08',
     ];
 
     for (i = 0; i <= untilFutureDate; i++) {
