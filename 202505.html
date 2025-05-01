@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Monofett&family=Noto+Sans+TC&family=Xanh+Mono&display=swap" rel="stylesheet">
+  <link href="./style.css" rel="stylesheet">
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/luxon@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js" integrity="sha256-v0oiNSTkC3fDBL7GfhIiz1UfFIgM9Cxp3ARlWOEcB7E=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-echarts@7.0.3/dist/index.min.js" integrity="sha256-biu/COsOskgNamRDvpkyRlPFsv/98hkdI+fOVPNlVdg=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <p>距離 5/29 19:30 還有 {{ untilAnniversary.full }}。</p>
+    <time>{{ untilAnniversary.short }}</time>
+    <v-chart id="chart-container" autoresize :option="option" />
+  </div>
+  <script>
+    var DateTime = luxon.DateTime,
+      Duration = luxon.Duration;
+    const Taipei = { zone: 'Asia/Taipei' };
+
+    Vue.createApp({
+      data() {
+        return {
+          now: DateTime.now().set({ milliseconds: 0 }),
+          anniversaryDate: DateTime.fromSQL('2025-05-29 19:30:00', Taipei),
+        };
+      },
+      computed: {
+        countDiff() {
+          return this.anniversaryDate.diff(this.now, [
+            'days', 'hours', 'minutes', 'seconds',
+          ]).toObject();
+        },
+        untilAnniversary() {
+          var currentDuration = Duration.fromObject(this.countDiff),
+            currentDurationObj = currentDuration.toObject(),
+            days = currentDurationObj.days,
+            hours = currentDurationObj.hours,
+            minutes = currentDurationObj.minutes,
+            seconds = currentDurationObj.seconds,
+
+            anniversaryObj = {
+              full: currentDuration.toFormat('d 天 h 小時 m 分 s 秒'),
+              short: currentDuration.toFormat('d:hh:mm:ss'),
+              days: days,
+              hours: hours,
+              minutes: minutes,
+              seconds: seconds,
+            };
+
+          return anniversaryObj;
+        },
+        option() {
+          var days = this.untilAnniversary.days,
+            hours = this.untilAnniversary.hours,
+            minutes = this.untilAnniversary.minutes,
+            seconds = this.untilAnniversary.seconds,
+            minDays = 0,
+            maxDays = 28,
+            minHours = hours >= 12 ? 12 : 0,
+            maxHours = hours >= 12 ? 24 : 12,
+            option = {
+              series: [
+                {
+                  name: 'days',
+                  type: 'gauge',
+                  radius: '60%',
+                  startAngle: 90,
+                  endAngle: -270,
+                  data: [
+                    days + hours / 24,
+                  ],
+                  min: minDays,
+                  max: maxDays,
+                  splitNumber: 7,
+                  // 軸線
+                  axisLine: {
+                    lineStyle: {
+                      color: [
+                        [0.36, 'red'],
+                        [0.60, 'orange'],
+                        [0.80, 'gold'],
+                        [1.00, 'green'],
+                      ],
+                      width: 5,
+                    },
+                  },
+                  // 大格
+                  splitLine: {
+                    distance: 0,
+                    lineStyle: {
+                      color: 'green',
+                    },
+                  },
+                  // 小格
+                  axisTick: {
+                    distance: 0,
+                    lineStyle: {
+                      color: 'green',
+                    },
+                    splitNumber: 4,
+                  },
+                  axisLabel: {
+                    distance: 10,
+                    formatter: (value) => {
+                      if (value === maxDays) {
+                        return '';
+                      }
+                      return value + 'ᴅ';
+                    },
+                    color: 'green',
+                    fontFamily: 'Xanh Mono',
+                    fontSize: 24,
+                  },
+                  pointer: {
+                    length: '88%',
+                    itemStyle: {
+                      color: 'green',
+                    },
+                    width: 7,
+                  },
+                  detail: {
+                    show: false,
+                  },
+                  animation: false,
+                },
+                {
+                  name: 'hours',
+                  type: 'gauge',
+                  radius: '100%',
+                  startAngle: 90,
+                  endAngle: -270,
+                  data: [
+                    hours + minutes / 60,
+                  ],
+                  min: minHours,
+                  max: maxHours,
+                  splitNumber: 12,
+                  // 軸線
+                  axisLine: {
+                    show: false,
+                  },
+                  // 大格
+                  splitLine: {
+                    show: false,
+                  },
+                  // 小格
+                  axisTick: {
+                    show: false,
+                  },
+                  axisLabel: {
+                    distance: 0,
+                    formatter: (value) => {
+                      if (value === minHours) {
+                        return '';
+                      }
+                      return value;
+                    },
+                    fontFamily: 'Xanh Mono',
+                    fontSize: 30,
+                  },
+                  pointer: {
+                    icon: 'roundRect',
+                    length: '68%',
+                    width: 5,
+                  },
+                  itemStyle: {
+                    color: '#000',
+                  },
+                  detail: {
+                    show: false,
+                  },
+                  animation: false,
+                },
+                {
+                  name: 'minutes',
+                  type: 'gauge',
+                  radius: '100%',
+                  startAngle: 90,
+                  endAngle: -270,
+                  data: [
+                    minutes + seconds / 60,
+                  ],
+                  max: 60,
+                  splitNumber: 12,
+                  // 軸線
+                  axisLine: {
+                    show: false,
+                  },
+                  // 大格
+                  splitLine: {
+                    show: false,
+                  },
+                  // 小格
+                  axisTick: {
+                    show: false,
+                  },
+                  axisLabel: {
+                    show: false,
+                  },
+                  pointer: {
+                    icon: 'roundRect',
+                    length: '80%',
+                    width: 3,
+                  },
+                  itemStyle: {
+                    color: '#000',
+                  },
+                  detail: {
+                    show: false,
+                  },
+                  animation: false,
+                },
+                {
+                  name: 'seconds',
+                  type: 'gauge',
+                  radius: '100%',
+                  startAngle: 90,
+                  endAngle: -270,
+                  data: [
+                    seconds,
+                  ],
+                  max: 60,
+                  splitNumber: 12,
+                  // 軸線
+                  axisLine: {
+                    lineStyle: {
+                      color: [
+                        [1, '#000'],
+                      ],
+                      width: 3,
+                    },
+                  },
+                  // 大格
+                  splitLine: {
+                    distance: 0,
+                    lineStyle: {
+                      color: '#000',
+                    },
+                  },
+                  // 小格
+                  axisTick: {
+                    distance: 0,
+                    lineStyle: {
+                      color: '#000',
+                    },
+                  },
+                  axisLabel: {
+                    show: false,
+                  },
+                  pointer: {
+                    icon: 'roundRect',
+                    length: '93%',
+                    width: 1,
+                  },
+                  itemStyle: {
+                    color: '#000',
+                  },
+                  detail: {
+                    show: false,
+                  },
+                  animation: false,
+                },
+              ],
+            };
+
+          return option;
+        },
+      },
+      mounted() {
+        setInterval(() => {
+          this.now = DateTime.now().set({ milliseconds: 0 })
+        }, 1000);
+      },
+    })
+      .component('v-chart', VueECharts)
+      .mount('#app');
+  </script>
+</body>
+
+</html>
