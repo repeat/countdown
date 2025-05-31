@@ -17,7 +17,7 @@
 
 <body>
   <div id="app">
-    <p>距離 5/29 19:30 還有 {{ untilAnniversary.full }}。</p>
+    <p id="message">距離 {{ anniversaryDateFormatted }} 19:30 還有 {{ untilAnniversary.full }}。</p>
     <time>{{ untilAnniversary.short }}</time>
     <v-chart id="chart-container" autoresize :option="option" />
   </div>
@@ -28,9 +28,34 @@
 
     Vue.createApp({
       data() {
+        const now = DateTime.now().set({ milliseconds: 0, second: 0 });
+
+        const getLastWeekdayOfMonth = (year, month) => {
+          let lastDayOfMonth = DateTime.local(year, month + 1, 1).minus({ days: 1 });
+          let lastWeekday = lastDayOfMonth.set({ hour: 19, minute: 30, second: 0 });
+          while (lastWeekday.weekday > 5) {
+            lastWeekday = lastWeekday.minus({ days: 1 });
+          }
+          return lastWeekday;
+        };
+
         return {
-          now: DateTime.now().set({ milliseconds: 0 }),
-          anniversaryDate: DateTime.fromSQL('2025-05-29 19:30:00', Taipei),
+          now: now,
+          anniversaryDate: (() => {
+            let year = now.year;
+            let month = now.month;
+            let lastWeekday = getLastWeekdayOfMonth(year, month);
+
+            if (now > lastWeekday) {
+              month = month + 1;
+              if (month > 12) {
+                month = 1;
+                year = year + 1;
+              }
+              lastWeekday = getLastWeekdayOfMonth(year, month);
+            }
+            return lastWeekday;
+          })(),
         };
       },
       computed: {
@@ -58,13 +83,16 @@
 
           return anniversaryObj;
         },
+        anniversaryDateFormatted() {
+          return this.anniversaryDate.toFormat('yyyy/MM/dd');
+        },
         option() {
           var days = this.untilAnniversary.days,
             hours = this.untilAnniversary.hours,
             minutes = this.untilAnniversary.minutes,
             seconds = this.untilAnniversary.seconds,
             minDays = 0,
-            maxDays = 28,
+            maxDays = 35,
             minHours = hours >= 12 ? 12 : 0,
             maxHours = hours >= 12 ? 24 : 12,
             option = {
