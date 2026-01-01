@@ -27,12 +27,12 @@
 <body>
   <menu id="link">
     <li><a id="link-main" href="./index.html">index</a></li>
-    <li><a id="link-17th" href="./17thAnniversary.html">17th Anniversary</a></li>
+    <li><a id="link-18th" href="./18thAnniversary.html">18th Anniversary</a></li>
     <li><a id="link-work" href="./work.html">work</a></li>
     <li><a id="link-github" href="https://github.com/repeat/countdown" target="_blank">back to github</a></li>
   </menu>
   <div id="app">
-    <p id="work">距離 2025/12/31 還有 {{ countdown }} 天。</p>
+    <p id="work">距離 2026/12/31 還有 {{ countdown }} 天。</p>
   </div>
   <div id="calendar" style="width: 1000px; height: 350px;"></div>
   <script>
@@ -45,7 +45,7 @@
       Taipei = { zone: 'Asia/Taipei' },
       now = DateTime.now(),
       today = DateTime.fromISO(now.toISODate()),
-      futureDate = DateTime.fromSQL('2026-01-01', Taipei),
+      futureDate = DateTime.fromSQL('2027-01-01', Taipei),
       untilFutureDate = betweenDays(today, futureDate);
 
     Vue.createApp({
@@ -76,28 +76,27 @@
     };
 
     const holidays = [
-      '2025-01-01',
-      '2025-01-27',
-      '2025-01-28',
-      '2025-01-29',
-      '2025-01-30',
-      '2025-01-31',
-      '2025-01-27',
-      '2025-01-27',
-      '2025-04-03',
-      '2025-04-04',
-      '2025-05-01',
-      '2025-05-30',
-      '2025-09-29',
-      '2025-10-06',
-      '2025-10-10',
-      '2025-10-24',
-      '2025-12-25',
       '2026-01-01',
+      '2026-02-16',
+      '2026-02-17',
+      '2026-02-18',
+      '2026-02-19',
+      '2026-02-20',
+      '2026-02-27',
+      '2026-04-03',
+      '2026-04-06',
+      '2026-05-01',
+      '2026-06-19',
+      '2026-09-25',
+      '2026-09-28',
+      '2026-10-09',
+      '2026-10-26',
+      '2026-12-25',
+      '2027-01-01',
     ];
 
     const workingSaturdays = [
-      '2025-02-08',
+      // none
     ];
 
     for (i = 0; i <= untilFutureDate; i++) {

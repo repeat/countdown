@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="17th Anniversary">
+  <meta name="description" content="18th Anniversary">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Monofett&family=Noto+Sans+TC&family=Xanh+Mono&display=swap" rel="stylesheet">
@@ -29,12 +29,12 @@
 <body>
   <menu id="link">
     <li><a id="link-main" href="./index.html">index</a></li>
-    <li><a id="link-17th" href="./17thAnniversary.html">17th Anniversary</a></li>
+    <li><a id="link-18th" href="./18thAnniversary.html">18th Anniversary</a></li>
     <li><a id="link-work" href="./work.html">work</a></li>
     <li><a id="link-github" href="https://github.com/repeat/countdown" target="_blank">back to github</a></li>
   </menu>
   <div id="app">
-    <p>17 週年還有 {{ untilAnniversary.full }}。</p>
+    <p>18 週年已經 {{ untilAnniversary.full }}。</p>
     <time>{{ untilAnniversary.short }}</time>
     <v-chart id="chart-container" autoresize :option="option" />
   </div>
@@ -53,7 +53,7 @@
       },
       computed: {
         countDiff() {
-          return this.anniversaryDate.diff(this.now, [
+          return this.now.diff(this.anniversaryDate, [
             'days', 'hours', 'minutes', 'seconds',
           ]).toObject();
         },

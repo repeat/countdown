@@ -17,7 +17,7 @@
 
 <body>
   <div id="app">
-    <p id="message">距離 {{ anniversaryDateFormatted }} 19:30 還有 {{ untilAnniversary.full }}。</p>
+    <p id="message">距離 {{ anniversaryDateFormatted }} 19:00 還有 {{ untilAnniversary.full }}。</p>
     <time>{{ untilAnniversary.short }}</time>
     <v-chart id="chart-container" autoresize :option="option" />
   </div>
@@ -32,7 +32,7 @@
 
         const getLastWeekdayOfMonth = (year, month) => {
           let lastDayOfMonth = DateTime.local(year, month + 1, 1).minus({ days: 1 });
-          let lastWeekday = lastDayOfMonth.set({ hour: 19, minute: 30, second: 0 });
+          let lastWeekday = lastDayOfMonth.set({ hour: 19, minute: 0, second: 0 });
           while (lastWeekday.weekday > 5) {
             lastWeekday = lastWeekday.minus({ days: 1 });
           }
